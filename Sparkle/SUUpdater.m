@@ -10,6 +10,8 @@
 #import "SUUpdaterDelegate.h"
 #import "SUUpdaterPrivate.h"
 
+#import "SUErrors.h"
+
 #import "SUHost.h"
 #import "SUUpdatePermissionResponse.h"
 #import "SUUpdatePermissionPrompt.h"
@@ -297,7 +299,7 @@ static NSString *const SUUpdaterDefaultsObservationContext = @"SUUpdaterDefaults
 - (void)checkForUpdatesInBackground
 {
     BOOL automatic = [self automaticallyDownloadsUpdates];
-
+/*
     if (!automatic) {
         if (SUAVAILABLE(10, 9)) {
 #pragma clang diagnostic push
@@ -313,11 +315,30 @@ static NSString *const SUUpdaterDefaultsObservationContext = @"SUUpdaterDefaults
             }
         }
     }
-
+*/
     // Do not use reachability for a preflight check. This can be deceptive and a bad idea. Apple does not recommend doing it.
-    SUUpdateDriver *theUpdateDriver = [(SUBasicUpdateDriver *)[(automatic ? [SUAutomaticUpdateDriver class] : [SUScheduledUpdateDriver class])alloc] initWithUpdater:self];
+    SUUpdateDriver *theUpdateDriver = [(SUBasicUpdateDriver *)[[SUAutomaticUpdateDriver class] alloc] initWithUpdater:self];
+
+    if(!automatic)
+    {
+        // Notify host app that update has aborted
+        if (self.delegate && [self.delegate respondsToSelector:@selector(updater:didAbortWithError:)])
+        {
+            [self.delegate updater:self didAbortWithError:
+             [NSError errorWithDomain:SUSparkleErrorDomain code:SUTemporaryDirectoryError userInfo:nil]];
+        }
+        return;
+    }
     
     [self checkForUpdatesWithDriver:theUpdateDriver];
+}
+
+- (void)abortUpdate
+{
+    if (self.driver)
+    {
+        [self.driver abortUpdate];
+    }
 }
 
 - (IBAction)checkForUpdates:(id)__unused sender
@@ -457,9 +478,10 @@ static NSString *const SUUpdaterDefaultsObservationContext = @"SUUpdaterDefaults
     if (![SUSystemUpdateInfo systemAllowsAutomaticUpdatesForHost:self.host]) {
         return NO;
     }
-
+    return YES;
+/*
     // Otherwise, automatically downloading updates is allowed. Does the user want it?
-    return [self.host boolForUserDefaultsKey:SUAutomaticallyUpdateKey];
+    return [self.host boolForUserDefaultsKey:SUAutomaticallyUpdateKey];*/
 }
 
 - (void)setFeedURL:(NSURL *)feedURL

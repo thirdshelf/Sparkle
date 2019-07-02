@@ -46,6 +46,7 @@ static const NSTimeInterval SUAutomaticUpdatePromptImpatienceTimer = 60 * 60 * 2
 
 - (void)showUpdateAlert
 {
+    return;
     self.interruptible = NO;
     [self invalidateShowUpdateAlertTimer];
 

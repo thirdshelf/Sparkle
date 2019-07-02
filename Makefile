@@ -3,7 +3,7 @@
 all: build
 
 ifndef BUILDDIR
-    BUILDDIR := $(shell mktemp -d "$(TMPDIR)/Sparkle.XXXXXX")
+    BUILDDIR := ./
 endif
 
 localizable-strings:
@@ -14,9 +14,6 @@ localizable-strings:
 
 release:
 	xcodebuild -scheme Distribution -configuration Release -derivedDataPath "$(BUILDDIR)" build
-	open -R "$(BUILDDIR)/Build/Products/Release/Sparkle-"*.tar.bz2
-	cat Sparkle.podspec
-	@echo "Don't forget to update CocoaPods! pod trunk push"
 
 build:
 	xcodebuild clean build
