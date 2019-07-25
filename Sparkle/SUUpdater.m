@@ -10,8 +10,6 @@
 #import "SUUpdaterDelegate.h"
 #import "SUUpdaterPrivate.h"
 
-#import "SUErrors.h"
-
 #import "SUHost.h"
 #import "SUUpdatePermissionResponse.h"
 #import "SUUpdatePermissionPrompt.h"
@@ -317,18 +315,7 @@ static NSString *const SUUpdaterDefaultsObservationContext = @"SUUpdaterDefaults
     }
 */
     // Do not use reachability for a preflight check. This can be deceptive and a bad idea. Apple does not recommend doing it.
-    SUUpdateDriver *theUpdateDriver = [(SUBasicUpdateDriver *)[[SUAutomaticUpdateDriver class] alloc] initWithUpdater:self];
-
-    if(!automatic)
-    {
-        // Notify host app that update has aborted
-        if (self.delegate && [self.delegate respondsToSelector:@selector(updater:didAbortWithError:)])
-        {
-            [self.delegate updater:self didAbortWithError:
-             [NSError errorWithDomain:SUSparkleErrorDomain code:SUTemporaryDirectoryError userInfo:nil]];
-        }
-        return;
-    }
+   SUUpdateDriver *theUpdateDriver = [(SUBasicUpdateDriver *)[(automatic ? [SUAutomaticUpdateDriver class] : [SUScheduledUpdateDriver class])alloc] initWithUpdater:self];
     
     [self checkForUpdatesWithDriver:theUpdateDriver];
 }
