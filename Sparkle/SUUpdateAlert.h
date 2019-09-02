@@ -29,7 +29,6 @@ typedef NS_ENUM(NSInteger, SUUpdateAlertChoice) {
 - (instancetype)initWithAppcastItem:(SUAppcastItem *)item host:(SUHost *)host completionBlock:(void(^)(SUUpdateAlertChoice))c;
 
 - (IBAction)installUpdate:sender;
-- (IBAction)skipThisVersion:sender;
 - (IBAction)remindMeLater:sender;
 - (void)disableKeyboardShortcutForInstallButton;
 

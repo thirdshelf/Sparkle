@@ -53,7 +53,6 @@ static NSString *const SUUpdateAlertTouchBarIndentifier = @"" SPARKLE_BUNDLE_IDE
 @property (weak) IBOutlet NSTextField *descriptionField;
 @property (weak) IBOutlet NSButton *automaticallyInstallUpdatesButton;
 @property (weak) IBOutlet NSButton *installButton;
-@property (weak) IBOutlet NSButton *skipButton;
 @property (weak) IBOutlet NSButton *laterButton;
 
 @end
@@ -75,7 +74,6 @@ static NSString *const SUUpdateAlertTouchBarIndentifier = @"" SPARKLE_BUNDLE_IDE
 @synthesize descriptionField;
 @synthesize automaticallyInstallUpdatesButton;
 @synthesize installButton;
-@synthesize skipButton;
 @synthesize laterButton;
 
 - (instancetype)initWithAppcastItem:(SUAppcastItem *)item host:(SUHost *)aHost completionBlock:(void (^)(SUUpdateAlertChoice))block
@@ -139,11 +137,6 @@ static NSString *const SUUpdateAlertTouchBarIndentifier = @"" SPARKLE_BUNDLE_IDE
 - (IBAction)openInfoURL:(id)__unused sender
 {
     [self endWithSelection:SUOpenInfoURLChoice];
-}
-
-- (IBAction)skipThisVersion:(id)__unused sender
-{
-    [self endWithSelection:SUSkipThisVersionChoice];
 }
 
 - (IBAction)remindMeLater:(id)__unused sender
@@ -253,15 +246,11 @@ static NSString *const SUUpdateAlertTouchBarIndentifier = @"" SPARKLE_BUNDLE_IDE
     // When we show release notes, it looks ugly if the install buttons are not closer to the release notes view
     // However when we don't show release notes, it looks ugly if the install buttons are too close to the description field. Shrugs.
     if (showReleaseNotes && ![self allowsAutomaticUpdates]) {
-        NSLayoutConstraint *skipButtonToReleaseNotesContainerConstraint = [NSLayoutConstraint constraintWithItem:self.skipButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.releaseNotesContainerView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:12.0];
+        NSLayoutConstraint *installButtonToReleaseNotesContainerConstraint = [NSLayoutConstraint constraintWithItem:self.installButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.releaseNotesContainerView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:12.0];
         
-        [self.window.contentView addConstraint:skipButtonToReleaseNotesContainerConstraint];
+        [self.window.contentView addConstraint:installButtonToReleaseNotesContainerConstraint];
         
         [self.automaticallyInstallUpdatesButton removeFromSuperview];
-    }
-
-    if ([self.updateItem isCriticalUpdate]) {
-        self.skipButton.enabled = NO;
     }
 
     [self.window center];
@@ -398,7 +387,7 @@ static NSString *const SUUpdateAlertTouchBarIndentifier = @"" SPARKLE_BUNDLE_IDE
 {
     if ([identifier isEqualToString:SUUpdateAlertTouchBarIndentifier]) {
         NSCustomTouchBarItem* item = [(NSCustomTouchBarItem *)[NSClassFromString(@"NSCustomTouchBarItem") alloc] initWithIdentifier:identifier];
-        item.viewController = [[SUTouchBarButtonGroup alloc] initByReferencingButtons:@[self.installButton, self.laterButton, self.skipButton]];
+        item.viewController = [[SUTouchBarButtonGroup alloc] initByReferencingButtons:@[self.installButton, self.laterButton]];
         return item;
     }
     return nil;

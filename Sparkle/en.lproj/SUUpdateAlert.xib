@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="11542"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SUUpdateAlert">
@@ -17,7 +15,6 @@
                 <outlet property="laterButton" destination="22" id="177"/>
                 <outlet property="releaseNotesContainerView" destination="fKC-QA-GZa" id="BYw-MA-Z5h"/>
                 <outlet property="releaseNotesView" destination="18" id="32"/>
-                <outlet property="skipButton" destination="23" id="178"/>
                 <outlet property="window" destination="5" id="69"/>
             </connections>
         </customObject>
@@ -27,7 +24,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="746" y="229" width="620" height="370"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="550" height="150"/>
             <value key="maxSize" type="size" width="700" height="600"/>
             <view key="contentView" id="6">
@@ -75,16 +72,16 @@
                             <binding destination="-2" name="value" keyPath="descriptionText" id="103"/>
                         </connections>
                     </textField>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="fKC-QA-GZa" userLabel="Container to hide release notes">
+                    <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fKC-QA-GZa" userLabel="Container to hide release notes">
                         <rect key="frame" x="108" y="74" width="492" height="234"/>
                         <subviews>
-                            <box boxType="oldStyle" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="89">
+                            <box ambiguous="YES" boxType="oldStyle" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="89">
                                 <rect key="frame" x="0.0" y="0.0" width="492" height="214"/>
-                                <view key="contentView" id="hbB-V1-Bf6">
+                                <view key="contentView" ambiguous="YES" id="hbB-V1-Bf6">
                                     <rect key="frame" x="1" y="1" width="490" height="212"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <webView maintainsBackForwardList="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18">
+                                        <webView ambiguous="YES" maintainsBackForwardList="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18">
                                             <rect key="frame" x="0.0" y="-2" width="492" height="214"/>
                                             <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" minimumFontSize="7" plugInsEnabled="NO" javaEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO">
                                                 <nil key="identifier"/>
@@ -115,7 +112,7 @@
                                     </binding>
                                 </connections>
                             </box>
-                            <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="17">
+                            <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17">
                                 <rect key="frame" x="-2" y="220" width="88" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="100" constant="100" id="gkn-FW-9aC"/>
@@ -159,16 +156,6 @@ Gw
                             <action selector="remindMeLater:" target="-2" id="34"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="998" translatesAutoresizingMaskIntoConstraints="NO" id="23">
-                        <rect key="frame" x="103" y="12" width="145" height="32"/>
-                        <buttonCell key="cell" type="push" title="Skip This Version" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="172">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="skipThisVersion:" target="-2" id="33"/>
-                        </connections>
-                    </button>
                     <button horizontalHuggingPriority="20" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="76">
                         <rect key="frame" x="474" y="12" width="132" height="32"/>
                         <constraints>
@@ -185,8 +172,8 @@ DQ
                             <action selector="installUpdate:" target="-2" id="77"/>
                         </connections>
                     </button>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="117">
-                        <rect key="frame" x="106" y="49" width="495" height="20"/>
+                    <button ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="117">
+                        <rect key="frame" x="284" y="49" width="317" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="28" id="0AI-ue-a0r"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="yM1-TA-HfP"/>
@@ -209,24 +196,16 @@ DQ
                     <constraint firstItem="10" firstAttribute="leading" secondItem="7" secondAttribute="trailing" constant="22" id="2ef-4I-Il3"/>
                     <constraint firstAttribute="trailing" secondItem="fKC-QA-GZa" secondAttribute="trailing" constant="20" id="406-Cn-C5d"/>
                     <constraint firstItem="101" firstAttribute="leading" secondItem="10" secondAttribute="leading" id="7XS-9C-U6N"/>
-                    <constraint firstItem="23" firstAttribute="top" secondItem="117" secondAttribute="bottom" constant="12" id="CBk-cX-pk2"/>
-                    <constraint firstItem="22" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="23" secondAttribute="trailing" constant="12" id="EeC-NR-NYg"/>
                     <constraint firstAttribute="trailing" secondItem="76" secondAttribute="trailing" constant="20" id="GdV-QF-Cdi"/>
                     <constraint firstItem="76" firstAttribute="width" secondItem="22" secondAttribute="width" multiplier="0.8" priority="110" id="I8t-73-gX0"/>
                     <constraint firstItem="117" firstAttribute="top" secondItem="fKC-QA-GZa" secondAttribute="bottom" priority="900" constant="8" id="M7E-UY-nWx"/>
                     <constraint firstItem="fKC-QA-GZa" firstAttribute="top" secondItem="101" secondAttribute="bottom" constant="8" id="Mbz-C0-6Cx"/>
-                    <constraint firstItem="117" firstAttribute="leading" secondItem="23" secondAttribute="leading" id="Nm4-V1-7X0"/>
-                    <constraint firstItem="23" firstAttribute="leading" secondItem="117" secondAttribute="leading" id="OXY-8u-ljs"/>
-                    <constraint firstItem="23" firstAttribute="leading" secondItem="10" secondAttribute="leading" constant="1" id="RRB-n5-xid"/>
                     <constraint firstItem="76" firstAttribute="leading" secondItem="22" secondAttribute="trailing" constant="12" id="VQk-Ut-ggj"/>
                     <constraint firstItem="7" firstAttribute="top" secondItem="6" secondAttribute="top" constant="20" id="alH-AL-5RD"/>
-                    <constraint firstItem="22" firstAttribute="baseline" secondItem="23" secondAttribute="baseline" id="ayY-6b-JGg"/>
                     <constraint firstItem="76" firstAttribute="baseline" secondItem="22" secondAttribute="baseline" id="dIR-3Q-wQx"/>
                     <constraint firstAttribute="bottom" secondItem="76" secondAttribute="bottom" constant="19" id="gcR-Kl-Wlq"/>
                     <constraint firstAttribute="trailing" secondItem="101" secondAttribute="trailing" constant="22" id="k7p-HC-x7i"/>
-                    <constraint firstItem="fKC-QA-GZa" firstAttribute="leading" secondItem="23" secondAttribute="leading" constant="-1" id="nVW-Qt-8JE"/>
                     <constraint firstAttribute="trailing" secondItem="10" secondAttribute="trailing" constant="22" id="oQx-Oc-awc"/>
-                    <constraint firstItem="76" firstAttribute="width" secondItem="23" secondAttribute="width" priority="109" id="pLI-z3-P0b"/>
                     <constraint firstItem="fKC-QA-GZa" firstAttribute="leading" secondItem="10" secondAttribute="leading" id="qQ9-OJ-06z"/>
                     <constraint firstItem="101" firstAttribute="top" secondItem="10" secondAttribute="bottom" constant="8" id="r7Q-z5-jkx"/>
                     <constraint firstItem="10" firstAttribute="top" secondItem="6" secondAttribute="top" constant="15" id="rXd-o0-WQQ"/>
@@ -242,6 +221,6 @@ DQ
         <userDefaultsController representsSharedInstance="YES" id="93" userLabel="Shared Defaults"/>
     </objects>
     <resources>
-        <image name="NSApplicationIcon" width="128" height="128"/>
+        <image name="NSApplicationIcon" width="32" height="32"/>
     </resources>
 </document>
