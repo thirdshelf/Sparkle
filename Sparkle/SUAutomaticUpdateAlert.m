@@ -21,7 +21,6 @@ static NSString *const SUAutomaticUpdateAlertTouchBarIndentifier = @"" SPARKLE_B
 @property (strong) SUAppcastItem *updateItem;
 @property (strong) SUHost *host;
 
-@property (weak) IBOutlet NSButton *skipButton;
 @property (weak) IBOutlet NSButton *laterButton;
 @property (weak) IBOutlet NSButton *installButton;
 @end
@@ -30,7 +29,6 @@ static NSString *const SUAutomaticUpdateAlertTouchBarIndentifier = @"" SPARKLE_B
 @synthesize host;
 @synthesize updateItem;
 @synthesize completionBlock;
-@synthesize skipButton;
 @synthesize laterButton;
 @synthesize installButton;
 
@@ -73,9 +71,6 @@ static NSString *const SUAutomaticUpdateAlertTouchBarIndentifier = @"" SPARKLE_B
 
 - (void)windowDidLoad
 {
-    if ([self.updateItem isCriticalUpdate]) {
-        self.skipButton.enabled = NO;
-    }
 }
 
 
@@ -121,7 +116,7 @@ static NSString *const SUAutomaticUpdateAlertTouchBarIndentifier = @"" SPARKLE_B
 {
     if ([identifier isEqualToString:SUAutomaticUpdateAlertTouchBarIndentifier]) {
         NSCustomTouchBarItem* item = [(NSCustomTouchBarItem *)[NSClassFromString(@"NSCustomTouchBarItem") alloc] initWithIdentifier:identifier];
-        item.viewController = [[SUTouchBarButtonGroup alloc] initByReferencingButtons:@[self.installButton, self.laterButton, self.skipButton]];
+        item.viewController = [[SUTouchBarButtonGroup alloc] initByReferencingButtons:@[self.installButton, self.laterButton]];
         return item;
     }
     return nil;
